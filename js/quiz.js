@@ -1,5 +1,6 @@
 /* ============================================
    VAYDA WELLNESS QUIZ - JavaScript
+   Fixed to work with modal structure
    ============================================ */
 
 // ========== QUIZ DATA ==========
@@ -157,86 +158,77 @@ const quizData = {
 
 // ========== STATE ==========
 let currentQuestion = 0;
-let scores = {
-    sleep: 0,
-    digestion: 0,
-    stress: 0
-};
+let scores = { sleep: 0, digestion: 0, stress: 0 };
 let answers = [];
 let userData = {};
 
-// ========== DOM ELEMENTS ==========
-const progressContainer = document.getElementById('progressContainer');
-const progressFill = document.getElementById('progressFill');
-const progressText = document.getElementById('progressText');
-const optionsContainer = document.getElementById('optionsContainer');
-const questionCategory = document.getElementById('questionCategory');
-const questionIcon = document.getElementById('questionIcon');
-const questionText = document.getElementById('questionText');
-
-// ========== SCREEN MANAGEMENT ==========
-function showScreen(screenId) {
-    document.querySelectorAll('.screen').forEach(screen => {
-        screen.classList.remove('active');
-    });
-    document.getElementById(screenId).classList.add('active');
-}
-
-// ========== START QUIZ ==========
-function startQuiz() {
-    currentQuestion = 0;
-    scores = { sleep: 0, digestion: 0, stress: 0 };
-    answers = [];
-    
-    progressContainer.classList.add('visible');
-    showScreen('screenQuiz');
-    renderQuestion();
-}
+// ========== ICONS ==========
+const pillarIcons = {
+    sleep: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>',
+    digestion: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>',
+    stress: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>'
+};
 
 // ========== RENDER QUESTION ==========
 function renderQuestion() {
     const question = quizData.questions[currentQuestion];
+    const totalQuestions = quizData.questions.length;
     
-    // Update progress
-    const progress = ((currentQuestion + 1) / quizData.questions.length) * 100;
-    progressFill.style.width = `${progress}%`;
-    progressText.textContent = `${currentQuestion + 1} of ${quizData.questions.length}`;
+    // Update progress bar
+    const progressFill = document.getElementById('progressFill');
+    const progressText = document.getElementById('progressText');
+    if (progressFill && progressText) {
+        const percent = ((currentQuestion + 1) / totalQuestions) * 100;
+        progressFill.style.width = `${percent}%`;
+        progressText.textContent = `${currentQuestion + 1} of ${totalQuestions}`;
+    }
     
-    // Update category and icon
-    questionCategory.textContent = question.category;
-    questionIcon.className = `question-icon ${question.pillar}`;
+    // Update category badge
+    const categoryEl = document.getElementById('questionCategory');
+    if (categoryEl) {
+        categoryEl.textContent = question.category;
+    }
     
-    // Update icon SVG based on pillar
-    const icons = {
-        sleep: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>',
-        digestion: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>',
-        stress: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>'
-    };
-    questionIcon.innerHTML = icons[question.pillar];
+    // Update icon
+    const iconEl = document.getElementById('questionIcon');
+    if (iconEl) {
+        iconEl.innerHTML = pillarIcons[question.pillar];
+        iconEl.className = `question-icon ${question.pillar}`;
+    }
     
     // Update question text
-    questionText.textContent = question.text;
+    const textEl = document.getElementById('questionText');
+    if (textEl) {
+        textEl.textContent = question.text;
+    }
     
     // Render options
-    optionsContainer.innerHTML = question.options.map((option, index) => `
-        <div class="option" onclick="selectOption(${index}, ${option.score})">
-            <div class="option-indicator"></div>
-            <span class="option-text">${option.text}</span>
-        </div>
-    `).join('');
-    
-    // Animate in
-    document.querySelector('.quiz-content').style.animation = 'none';
-    setTimeout(() => {
-        document.querySelector('.quiz-content').style.animation = 'slideIn var(--transition-normal)';
-    }, 10);
+    const optionsContainer = document.getElementById('optionsContainer');
+    if (optionsContainer) {
+        optionsContainer.innerHTML = question.options.map((option, index) => `
+            <div class="option" data-index="${index}" data-score="${option.score}">
+                <div class="option-indicator"></div>
+                <span class="option-text">${option.text}</span>
+            </div>
+        `).join('');
+        
+        // Add click handlers
+        optionsContainer.querySelectorAll('.option').forEach(opt => {
+            opt.addEventListener('click', function() {
+                selectOption(
+                    parseInt(this.dataset.index),
+                    parseInt(this.dataset.score)
+                );
+            });
+        });
+    }
 }
 
 // ========== SELECT OPTION ==========
 function selectOption(index, score) {
     const question = quizData.questions[currentQuestion];
     
-    // Update scores
+    // Add score to appropriate pillar
     scores[question.pillar] += score;
     
     // Store answer
@@ -252,45 +244,62 @@ function selectOption(index, score) {
     options.forEach(opt => opt.classList.remove('selected'));
     options[index].classList.add('selected');
     
-    // Move to next question after short delay
+    // Move to next question or show capture form
     setTimeout(() => {
         if (currentQuestion < quizData.questions.length - 1) {
             currentQuestion++;
             renderQuestion();
         } else {
-            // Quiz complete - show capture form
-            progressContainer.classList.remove('visible');
-            showScreen('screenCapture');
+            showCaptureForm();
         }
     }, 300);
+}
+
+// ========== SHOW CAPTURE FORM ==========
+function showCaptureForm() {
+    const quizContent = document.getElementById('quizContent');
+    const captureContent = document.getElementById('captureContent');
+    
+    if (quizContent) quizContent.style.display = 'none';
+    if (captureContent) captureContent.style.display = 'flex';
 }
 
 // ========== SUBMIT FORM ==========
 function submitForm(event) {
     event.preventDefault();
     
-    // Collect form data
+    // Get form data
     userData = {
         firstName: document.getElementById('firstName').value,
         email: document.getElementById('email').value,
         phone: document.getElementById('phone').value || null,
         scores: scores,
-        answers: answers,
         dominantPillar: getDominantPillar(),
         totalScore: scores.sleep + scores.digestion + scores.stress,
         timestamp: new Date().toISOString()
     };
     
-    // Send to webhook (GHL - to be configured)
+    // Save to localStorage
+    localStorage.setItem('vayda_quiz_result', JSON.stringify(userData));
+    
+    // Send to webhook if configured
     sendToWebhook(userData);
     
-    // Show appropriate result
-    showResult();
+    // Redirect to tripwire with results
+    const params = new URLSearchParams({
+        pillar: userData.dominantPillar,
+        name: userData.firstName,
+        sleep: scores.sleep,
+        digestion: scores.digestion,
+        stress: scores.stress
+    });
+    
+    window.location.href = `tripwire.html?${params.toString()}`;
 }
 
 // ========== GET DOMINANT PILLAR ==========
 function getDominantPillar() {
-    // Tiebreaker order: Stress → Sleep → Digestion
+    // Tiebreaker: Stress → Sleep → Digestion
     if (scores.stress >= scores.sleep && scores.stress >= scores.digestion) {
         return 'stress';
     } else if (scores.sleep >= scores.digestion) {
@@ -300,125 +309,71 @@ function getDominantPillar() {
     }
 }
 
-// ========== SHOW RESULT ==========
-function showResult() {
-    const pillar = getDominantPillar();
-    
-    // Map pillar to screen
-    const screenMap = {
-        sleep: 'screenResultSleep',
-        digestion: 'screenResultDigestion',
-        stress: 'screenResultStress'
-    };
-    
-    // Update score bars with actual values
-    updateScoreBars(pillar);
-    
-    // Show result screen
-    showScreen(screenMap[pillar]);
-    
-    // Animate score bars
-    setTimeout(() => {
-        animateScoreBars();
-    }, 100);
-}
-
-// ========== UPDATE SCORE BARS ==========
-function updateScoreBars(pillar) {
-    const pillarCapitalized = pillar.charAt(0).toUpperCase() + pillar.slice(1);
-    const resultScreen = document.getElementById(`screenResult${pillarCapitalized}`);
-    
-    if (!resultScreen) return;
-    
-    // Update each pillar score using unique IDs
-    const pillars = ['sleep', 'digestion', 'stress'];
-    
-    pillars.forEach(p => {
-        const score = scores[p];
-        const percentage = (score / 12) * 100;
-        
-        const fillId = `${p}Score${pillarCapitalized}`;
-        const valueId = `${p}Value${pillarCapitalized}`;
-        
-        const fill = document.getElementById(fillId);
-        const value = document.getElementById(valueId);
-        
-        if (fill && value) {
-            fill.style.width = '0%';
-            fill.dataset.width = `${percentage}%`;
-            
-            // Set color class based on score
-            fill.classList.remove('score-fill--high', 'score-fill--medium', 'score-fill--low');
-            if (score >= 8) {
-                fill.classList.add('score-fill--high');
-            } else if (score >= 5) {
-                fill.classList.add('score-fill--medium');
-            } else {
-                fill.classList.add('score-fill--low');
-            }
-            
-            value.textContent = `${score}/12`;
-        }
-    });
-}
-
-// ========== ANIMATE SCORE BARS ==========
-function animateScoreBars() {
-    const fills = document.querySelectorAll('.screen.active .score-fill');
-    fills.forEach(fill => {
-        fill.style.width = fill.dataset.width;
-    });
-}
-
 // ========== SEND TO WEBHOOK ==========
 async function sendToWebhook(data) {
-    // GHL Webhook URL (to be configured)
-    const webhookUrl = window.VAYDA_WEBHOOK_URL || null;
-    
+    const webhookUrl = window.VAYDA_WEBHOOK_URL;
     if (!webhookUrl) {
-        console.log('Webhook not configured. Data:', data);
-        // Store locally for now
-        localStorage.setItem('vayda_quiz_result', JSON.stringify(data));
+        console.log('Webhook not configured. Data saved locally.');
         return;
     }
     
     try {
-        const response = await fetch(webhookUrl, {
+        await fetch(webhookUrl, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
         });
-        
-        if (!response.ok) {
-            throw new Error('Webhook failed');
-        }
-        
-        console.log('Data sent to webhook successfully');
+        console.log('Data sent to webhook');
     } catch (error) {
         console.error('Webhook error:', error);
-        // Store locally as backup
-        localStorage.setItem('vayda_quiz_result', JSON.stringify(data));
     }
 }
 
-// ========== STRIPE INTEGRATION ==========
-// Configure Stripe payment link
-const stripePaymentLink = window.VAYDA_STRIPE_LINK || 'https://buy.stripe.com/test_XXXXXXXX';
+// ========== CLOSE QUIZ ==========
+function closeQuiz() {
+    // Reset state
+    currentQuestion = 0;
+    scores = { sleep: 0, digestion: 0, stress: 0 };
+    answers = [];
+    
+    // Reset UI
+    const quizContent = document.getElementById('quizContent');
+    const captureContent = document.getElementById('captureContent');
+    const overlay = document.getElementById('quizOverlay');
+    
+    if (quizContent) quizContent.style.display = 'flex';
+    if (captureContent) captureContent.style.display = 'none';
+    if (overlay) overlay.classList.remove('active');
+    
+    document.body.style.overflow = '';
+}
 
+// ========== START QUIZ ==========
+function startQuiz() {
+    // Reset state
+    currentQuestion = 0;
+    scores = { sleep: 0, digestion: 0, stress: 0 };
+    answers = [];
+    
+    // Show overlay
+    const overlay = document.getElementById('quizOverlay');
+    if (overlay) overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    
+    // Reset UI state
+    const quizContent = document.getElementById('quizContent');
+    const captureContent = document.getElementById('captureContent');
+    if (quizContent) quizContent.style.display = 'flex';
+    if (captureContent) captureContent.style.display = 'none';
+    
+    // Render first question
+    renderQuestion();
+}
+
+// ========== INITIALIZATION ==========
 document.addEventListener('DOMContentLoaded', () => {
-    // Set Stripe links on all result pages
-    const stripeButtons = document.querySelectorAll('[id^="stripeBtn"]');
-    stripeButtons.forEach(btn => {
-        btn.href = stripePaymentLink;
-        btn.target = '_blank';
-    });
+    console.log('Vayda Wellness Quiz initialized');
+    
+    // Pre-render first question (hidden until quiz starts)
+    renderQuestion();
 });
-
-// ========== CONFIGURATION ==========
-// Set these values to configure the quiz
-// window.VAYDA_WEBHOOK_URL = 'https://your-ghl-webhook-url.com';
-// window.VAYDA_STRIPE_LINK = 'https://buy.stripe.com/your-product-link';
-
-console.log('Vayda Wellness Quiz loaded successfully');
