@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vital Balance Quiz | Vayda Wellness</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="quiz-landing">
+    
+    <!-- Floating Header -->
+    <header class="floating-header">
+        <div class="header-inner">
+            <div class="logo">
+                <svg class="logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <path d="M20 8 L20 14 M20 26 L20 32" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <circle cx="20" cy="20" r="6" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <path d="M12 12 L16 16 M24 24 L28 28 M28 12 L24 16 M16 24 L12 28" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+                </svg>
+                <span class="logo-text">Vayda <span class="logo-accent">Wellness</span></span>
+            </div>
+            <span class="header-badge">Free Assessment</span>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg-pattern"></div>
+        <div class="container">
+            <div class="hero-content">
+                <span class="eyebrow-badge">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="12 6 12 12 16 14"/>
+                    </svg>
+                    2-Minute Assessment
+                </span>
+                
+                <h1 class="hero-title">
+                    Discover What's Really Draining Your Energy
+                </h1>
+                
+                <p class="hero-subtitle">
+                    Constantly tired? Afternoon crashes? Brain fog that won't lift? 
+                    <strong>Your body is sending signals.</strong> This quiz decodes them.
+                </p>
+            </div>
+            
+            <!-- Video Container -->
+            <div class="video-section">
+                <div class="video-wrapper">
+                    <iframe 
+                        src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                        title="Vital Balance Quiz Introduction"
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+            
+            <!-- Primary CTA -->
+            <div class="hero-cta">
+                <button class="btn btn-gold btn-xl" onclick="startQuiz()">
+                    <span>Take the Vital Balance Quiz</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </button>
+                <p class="cta-note">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                    100% Free • Results in 2 Minutes • Private & Secure
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Crisis Section (The Problem) -->
+    <section class="crisis-section">
+        <div class="container">
+            <div class="crisis-header">
+                <span class="section-label">The Hidden Epidemic</span>
+                <h2>We're Living in an Energy Crisis</h2>
+            </div>
+            
+            <div class="crisis-content">
+                <p class="crisis-lead">
+                    Millions of people wake up exhausted, drag through their afternoons, and collapse into bed—only to repeat it all the next day. They've tried everything: supplements, diets, more sleep, less caffeine.
+                </p>
+                <p class="crisis-emphasis">
+                    <strong>Nothing works because nothing addresses the root cause.</strong>
+                </p>
+                <p class="crisis-text">
+                    The real problem? Most approaches treat symptoms in isolation. But your body is an interconnected system. When one pillar falls out of balance, everything else starts to crumble.
+                </p>
+            </div>
+            
+            <div class="crisis-symptoms">
+                <div class="symptom-card">
+                    <div class="symptom-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="10"/>
+                            <polyline points="12 6 12 12 16 14"/>
+                        </svg>
+                    </div>
+                    <span>3pm crashes that coffee can't fix</span>
+                </div>
+                <div class="symptom-card">
+                    <div class="symptom-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                        </svg>
+                    </div>
+                    <span>8 hours of sleep, still exhausted</span>
+                </div>
+                <div class="symptom-card">
+                    <div class="symptom-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 8v4M12 16h.01"/>
+                        </svg>
+                    </div>
+                    <span>Brain fog that clouds every decision</span>
+                </div>
+                <div class="symptom-card">
+                    <div class="symptom-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                        </svg>
+                    </div>
+                    <span>A body that feels decades older</span>
+                </div>
+            </div>
+            
+            <p class="crisis-question">
+                <em>Sound familiar? You're not alone—and you're not broken.</em>
+            </p>
+        </div>
+    </section>
+
+    <!-- The Three Bodies Framework -->
+    <section class="framework-section">
+        <div class="container">
+            <div class="framework-header">
+                <span class="section-label">The Vayda Method</span>
+                <h2>The Three Pillars of Vital Balance</h2>
+                <p class="framework-intro">
+                    After 20 years helping thousands restore their vitality, I've discovered that lasting energy comes from balancing three interconnected systems. When even one falls out of alignment, your whole body suffers.
+                </p>
+            </div>
+            
+            <div class="pillars-grid">
+                <div class="pillar-card pillar-sleep">
+                    <div class="pillar-image">
+                        <img src="assets/Vayda3.png" alt="Restorative Sleep">
+                    </div>
+                    <div class="pillar-content">
+                        <div class="pillar-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                            </svg>
+                        </div>
+                        <h3>Sleep Architecture</h3>
+                        <p>Your body repairs, restores, and regenerates during deep sleep. Without proper sleep architecture, no amount of rest will leave you refreshed.</p>
+                    </div>
+                </div>
+                
+                <div class="pillar-card pillar-digestion">
+                    <div class="pillar-image">
+                        <img src="assets/Vayda4.png" alt="Healthy Digestion">
+                    </div>
+                    <div class="pillar-content">
+                        <div class="pillar-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+                                <line x1="9" y1="9" x2="9.01" y2="9"/>
+                                <line x1="15" y1="9" x2="15.01" y2="9"/>
+                            </svg>
+                        </div>
+                        <h3>Digestive Vitality</h3>
+                        <p>70% of your immune system lives in your gut. When digestion struggles, inflammation rises, brain fog sets in, and energy plummets.</p>
+                    </div>
+                </div>
+                
+                <div class="pillar-card pillar-stress">
+                    <div class="pillar-image">
+                        <img src="assets/Vayda1.png" alt="Stress Balance">
+                    </div>
+                    <div class="pillar-content">
+                        <div class="pillar-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                                <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                            </svg>
+                        </div>
+                        <h3>Nervous System</h3>
+                        <p>Modern life keeps us in constant "fight or flight." When your nervous system can't downshift, your body burns through energy reserves at an unsustainable rate.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="framework-insight">
+                <div class="insight-box">
+                    <p><strong>The breakthrough insight:</strong> These three pillars don't exist in isolation. Poor sleep disrupts digestion. Digestive issues spike stress hormones. Chronic stress destroys sleep quality. It's a cycle—and breaking it starts with knowing which pillar needs attention first.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quiz Promise Section -->
+    <section class="quiz-promise">
+        <div class="container">
+            <div class="promise-content">
+                <div class="promise-image">
+                    <img src="assets/Vayda5.png" alt="Ramesh Roar">
+                </div>
+                <div class="promise-text">
+                    <h2>The Vital Balance Quiz</h2>
+                    <p class="promise-lead">In just 2 minutes, discover exactly which pillar is out of balance—and what to do about it.</p>
+                    
+                    <div class="promise-list">
+                        <div class="promise-item">
+                            <div class="promise-check">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                            </div>
+                            <span><strong>Your Primary Energy Drain</strong> — which of the 3 pillars needs attention first</span>
+                        </div>
+                        <div class="promise-item">
+                            <div class="promise-check">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                            </div>
+                            <span><strong>Your Personalized Balance Score</strong> — see exactly where you stand in each area</span>
+                        </div>
+                        <div class="promise-item">
+                            <div class="promise-check">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                            </div>
+                            <span><strong>3 Actions You Can Take Today</strong> — start feeling better now, not next month</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="testimonials-header">
+                <span class="section-label">Real Stories</span>
+                <h2>What Others Have Discovered</h2>
+            </div>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="testimonial-stars">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        </div>
+                        <p class="testimonial-text">"The quiz pinpointed exactly what I'd been missing for years. Turns out my sleep quality—not quantity—was the culprit. Three weeks later, I feel like a different person."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MT</div>
+                        <div class="author-info">
+                            <span class="author-name">Margaret T.</span>
+                            <span class="author-role">Executive, 58</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="testimonial-stars">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        </div>
+                        <p class="testimonial-text">"I've spent thousands on supplements and tests. This free 2-minute quiz gave me more clarity than all of it combined. My afternoon crashes are finally gone."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SR</div>
+                        <div class="author-info">
+                            <span class="author-name">Susan R.</span>
+                            <span class="author-role">Marketing Director, 52</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="testimonial-stars">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        </div>
+                        <p class="testimonial-text">"Ramesh's approach is so different. Instead of another Band-Aid, he helped me understand the root cause. The quiz was the starting point that changed everything."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">LK</div>
+                        <div class="author-info">
+                            <span class="author-name">Linda K.</span>
+                            <span class="author-role">Retired Nurse, 61</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Ramesh -->
+    <section class="about-section">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="assets/Vayda6.png" alt="Ramesh Roar">
+                    <div class="about-credentials">
+                        <span>20+ Years Experience</span>
+                        <span>•</span>
+                        <span>Thousands Helped</span>
+                    </div>
+                </div>
+                <div class="about-text">
+                    <span class="section-label">Your Guide</span>
+                    <h2>Meet Ramesh Roar</h2>
+                    <p>In 2004, I was diagnosed with chronic prostatitis. Despite being a vegetarian for 30 years, practicing yoga daily, and eating organic—I suffered for over 3 years.</p>
+                    <p>Conventional approaches failed me. Then I discovered the power of addressing root causes through integrated lifestyle protocols. Five weeks of intentional reset later, I was symptom-free.</p>
+                    <p><strong>That experience transformed my life—and my mission.</strong></p>
+                    <p>Since then, I've helped thousands decode their body's signals and restore their vitality through the Prama Institute. This quiz is the same starting point I use with my private clients.</p>
+                    <p class="about-signature">— Ramesh Roar<br><span>Co-founder, Prama Institute</span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="final-cta-section">
+        <div class="container">
+            <div class="final-cta-box">
+                <div class="final-cta-content">
+                    <h2>Ready to Decode Your Energy?</h2>
+                    <p>In 2 minutes, you'll know exactly which pillar is out of balance—and have a clear path forward.</p>
+                    
+                    <button class="btn btn-gold btn-xl" onclick="startQuiz()">
+                        <span>Take the Vital Balance Quiz</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                    
+                    <div class="final-cta-features">
+                        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> 100% Free</span>
+                        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> 12 Questions</span>
+                        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Instant Results</span>
+                    </div>
+                </div>
+                
+                <div class="final-cta-image">
+                    <img src="assets/Vayda2.png" alt="Community">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-logo">
+                <svg class="logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <path d="M20 8 L20 14 M20 26 L20 32" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <circle cx="20" cy="20" r="6" stroke="currentColor" stroke-width="2" fill="none"/>
+                </svg>
+                <span class="logo-text">Vayda <span class="logo-accent">Wellness</span></span>
+            </div>
+            <p class="footer-copy">© 2026 Vayda Wellness Center. All rights reserved.</p>
+            <p class="footer-disclaimer">This quiz is for educational purposes only and is not intended to diagnose, treat, cure, or prevent any disease. Always consult with a healthcare professional.</p>
+        </div>
+    </footer>
+
+    <!-- ====================================== -->
+    <!-- QUIZ SCREENS (Hidden by default) -->
+    <!-- ====================================== -->
+    
+    <div class="quiz-overlay" id="quizOverlay">
+        <div class="quiz-modal">
+            
+            <!-- Progress Bar -->
+            <div class="quiz-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <span class="progress-text" id="progressText">1 of 12</span>
+                <button class="close-quiz" onclick="closeQuiz()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Quiz Content -->
+            <div class="quiz-content" id="quizContent">
+                <div class="question-header">
+                    <span class="question-category" id="questionCategory">Sleep</span>
+                    <div class="question-icon" id="questionIcon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                        </svg>
+                    </div>
+                </div>
+                
+                <h2 class="question-text" id="questionText">How would you describe your sleep most nights?</h2>
+                
+                <div class="options-container" id="optionsContainer">
+                    <!-- Options injected by JS -->
+                </div>
+            </div>
+            
+            <!-- Lead Capture -->
+            <div class="capture-content" id="captureContent" style="display: none;">
+                <div class="capture-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M9 12l2 2 4-4"/>
+                        <circle cx="12" cy="12" r="10"/>
+                    </svg>
+                </div>
+                
+                <h2 class="capture-title">Your Results Are Ready!</h2>
+                <p class="capture-subtitle">Enter your details to unlock your personalized Vital Balance Report.</p>
+                
+                <form class="capture-form" id="captureForm" onsubmit="submitForm(event)">
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone <span class="optional">(optional)</span></label>
+                        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-gold btn-xl">
+                        <span>See My Results</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                </form>
+                
+                <p class="capture-privacy">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                    </svg>
+                    We respect your privacy. Unsubscribe anytime.
+                </p>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- Result Pages (will redirect to tripwire) -->
+    <script src="js/quiz.js"></script>
+    
+    <script>
+        function startQuiz() {
+            document.getElementById('quizOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeQuiz() {
+            document.getElementById('quizOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    </script>
+</body>
+</html>
