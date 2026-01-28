@@ -285,16 +285,146 @@ function submitForm(event) {
     // Send to webhook if configured
     sendToWebhook(userData);
     
-    // Redirect to tripwire with results
-    const params = new URLSearchParams({
-        pillar: userData.dominantPillar,
-        name: userData.firstName,
-        sleep: scores.sleep,
-        digestion: scores.digestion,
-        stress: scores.stress
-    });
+    // Show results screen (not redirect)
+    showResults();
+}
+
+// ========== PILLAR DATA ==========
+const pillarData = {
+    sleep: {
+        title: 'Sleep Architecture',
+        icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>',
+        description: 'Your quiz reveals that <strong>sleep quality</strong> is your primary energy drain. Even when you get enough hours, your body isn\'t reaching the deep, restorative stages where real recovery happens.',
+        actions: [
+            'Set a consistent bedtime (even on weekends)',
+            'Stop screens 60 minutes before bed',
+            'Try 5 minutes of deep breathing before sleep'
+        ]
+    },
+    digestion: {
+        title: 'Digestive Vitality',
+        icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>',
+        description: 'Your quiz reveals that <strong>digestive health</strong> is your primary energy drain. When your gut struggles, inflammation rises, brain fog sets in, and your energy plummets.',
+        actions: [
+            'Eat slowly and chew thoroughly',
+            'Add fermented foods to your diet',
+            'Avoid eating within 3 hours of bedtime'
+        ]
+    },
+    stress: {
+        title: 'Nervous System',
+        icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>',
+        description: 'Your quiz reveals that <strong>chronic stress</strong> is your primary energy drain. Your nervous system is stuck in "fight or flight," burning through energy reserves at an unsustainable rate.',
+        actions: [
+            'Practice 5 minutes of breathwork daily',
+            'Take short breaks every 90 minutes',
+            'Limit caffeine after 2pm'
+        ]
+    }
+};
+
+// ========== SHOW RESULTS ==========
+function showResults() {
+    const pillar = getDominantPillar();
+    const data = pillarData[pillar];
+    const firstName = userData.firstName || 'Friend';
     
-    window.location.href = `tripwire.html?${params.toString()}`;
+    // Hide capture, show results
+    const captureContent = document.getElementById('captureContent');
+    const resultsContent = document.getElementById('resultsContent');
+    
+    if (captureContent) captureContent.style.display = 'none';
+    if (resultsContent) resultsContent.style.display = 'flex';
+    resultsContent.style.flexDirection = 'column';
+    
+    // Update results icon
+    const resultsIcon = document.getElementById('resultsIcon');
+    if (resultsIcon) {
+        resultsIcon.innerHTML = data.icon;
+        resultsIcon.className = `results-icon ${pillar}`;
+    }
+    
+    // Update title and description
+    const resultsTitle = document.getElementById('resultsTitle');
+    const resultsDescription = document.getElementById('resultsDescription');
+    
+    if (resultsTitle) resultsTitle.textContent = data.title;
+    if (resultsDescription) resultsDescription.innerHTML = data.description;
+    
+    // Update score bars
+    updateScoreBars();
+    
+    // Update actions
+    const actions = data.actions;
+    for (let i = 0; i < 3; i++) {
+        const actionEl = document.getElementById(`action${i + 1}`);
+        if (actionEl && actions[i]) {
+            actionEl.textContent = actions[i];
+        }
+    }
+    
+    // Update CTA pillar name
+    const ctaPillar = document.getElementById('ctaPillar');
+    if (ctaPillar) {
+        const pillarNames = { sleep: 'Sleep', digestion: 'Digestion', stress: 'Stress' };
+        ctaPillar.textContent = pillarNames[pillar];
+    }
+    
+    // Update tripwire link with params
+    const tripwireLink = document.getElementById('tripwireLink');
+    if (tripwireLink) {
+        const params = new URLSearchParams({
+            pillar: pillar,
+            name: firstName,
+            sleep: scores.sleep,
+            digestion: scores.digestion,
+            stress: scores.stress
+        });
+        tripwireLink.href = `tripwire.html?${params.toString()}`;
+    }
+    
+    // Animate score bars after a short delay
+    setTimeout(animateScoreBars, 100);
+}
+
+// ========== UPDATE SCORE BARS ==========
+function updateScoreBars() {
+    const pillars = ['sleep', 'digestion', 'stress'];
+    
+    pillars.forEach(p => {
+        const score = scores[p];
+        const percentage = (score / 12) * 100;
+        
+        const fill = document.getElementById(`${p}ScoreFill`);
+        const value = document.getElementById(`${p}ScoreValue`);
+        
+        if (fill && value) {
+            fill.style.width = '0%';
+            fill.dataset.width = `${percentage}%`;
+            
+            // Set color class based on score
+            fill.classList.remove('high', 'medium', 'low');
+            if (score >= 8) {
+                fill.classList.add('high');
+            } else if (score >= 5) {
+                fill.classList.add('medium');
+            } else {
+                fill.classList.add('low');
+            }
+            
+            value.textContent = `${score}/12`;
+        }
+    });
+}
+
+// ========== ANIMATE SCORE BARS ==========
+function animateScoreBars() {
+    const fills = document.querySelectorAll('.results-scores .score-fill');
+    fills.forEach(fill => {
+        if (fill.dataset.width) {
+            fill.style.width = fill.dataset.width;
+        }
+    });
 }
 
 // ========== GET DOMINANT PILLAR ==========
@@ -335,15 +465,22 @@ function closeQuiz() {
     currentQuestion = 0;
     scores = { sleep: 0, digestion: 0, stress: 0 };
     answers = [];
+    userData = {};
     
     // Reset UI
     const quizContent = document.getElementById('quizContent');
     const captureContent = document.getElementById('captureContent');
+    const resultsContent = document.getElementById('resultsContent');
     const overlay = document.getElementById('quizOverlay');
     
     if (quizContent) quizContent.style.display = 'flex';
     if (captureContent) captureContent.style.display = 'none';
+    if (resultsContent) resultsContent.style.display = 'none';
     if (overlay) overlay.classList.remove('active');
+    
+    // Reset form
+    const form = document.getElementById('captureForm');
+    if (form) form.reset();
     
     document.body.style.overflow = '';
 }

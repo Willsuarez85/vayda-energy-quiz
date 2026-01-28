@@ -480,10 +480,96 @@
                 </p>
             </div>
             
+            <!-- Results Screen -->
+            <div class="results-content" id="resultsContent" style="display: none;">
+                <div class="results-header">
+                    <div class="results-icon" id="resultsIcon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                        </svg>
+                    </div>
+                    <span class="results-label" id="resultsLabel">Your Primary Energy Drain</span>
+                    <h2 class="results-title" id="resultsTitle">Sleep Architecture</h2>
+                </div>
+                
+                <p class="results-description" id="resultsDescription">
+                    Your quiz reveals that <strong>sleep quality</strong> is your primary energy drain. 
+                    Even when you get enough hours, your body isn't reaching the deep, restorative stages where real recovery happens.
+                </p>
+                
+                <!-- Score Bars -->
+                <div class="results-scores">
+                    <h3>Your Vital Balance Score</h3>
+                    <div class="score-bar">
+                        <span class="score-label">Sleep</span>
+                        <div class="score-track">
+                            <div class="score-fill" id="sleepScoreFill"></div>
+                        </div>
+                        <span class="score-value" id="sleepScoreValue">0/12</span>
+                    </div>
+                    <div class="score-bar">
+                        <span class="score-label">Digestion</span>
+                        <div class="score-track">
+                            <div class="score-fill" id="digestionScoreFill"></div>
+                        </div>
+                        <span class="score-value" id="digestionScoreValue">0/12</span>
+                    </div>
+                    <div class="score-bar">
+                        <span class="score-label">Stress</span>
+                        <div class="score-track">
+                            <div class="score-fill" id="stressScoreFill"></div>
+                        </div>
+                        <span class="score-value" id="stressScoreValue">0/12</span>
+                    </div>
+                    <p class="score-note">Higher scores indicate areas needing more attention.</p>
+                </div>
+                
+                <!-- Quick Actions -->
+                <div class="results-actions">
+                    <h3>3 Things You Can Start Today</h3>
+                    <div class="action-item">
+                        <span class="action-number">1</span>
+                        <span class="action-text" id="action1">Set a consistent bedtime (even on weekends)</span>
+                    </div>
+                    <div class="action-item">
+                        <span class="action-number">2</span>
+                        <span class="action-text" id="action2">Stop screens 60 minutes before bed</span>
+                    </div>
+                    <div class="action-item">
+                        <span class="action-number">3</span>
+                        <span class="action-text" id="action3">Try 5 minutes of deep breathing before sleep</span>
+                    </div>
+                </div>
+                
+                <!-- CTA to Tripwire -->
+                <div class="results-cta">
+                    <div class="cta-box">
+                        <h3>Ready to Reset Your <span id="ctaPillar">Sleep</span>?</h3>
+                        <p>The 3-Day Vital Reset is designed specifically for people like you. In just 3 days, you'll feel the shift.</p>
+                        <a href="tripwire.html" class="btn btn-gold btn-xl" id="tripwireLink">
+                            <span>Start My 3-Day Reset — $27</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                        <p class="cta-guarantee">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                            </svg>
+                            7-Day Money-Back Guarantee
+                        </p>
+                    </div>
+                </div>
+                
+                <button class="results-close" onclick="closeQuiz()">
+                    I'll think about it — close
+                </button>
+            </div>
+            
         </div>
     </div>
 
-    <!-- Result Pages (will redirect to tripwire) -->
+    <!-- Result Pages -->
     <script src="js/quiz.js"></script>
     
     <script>
